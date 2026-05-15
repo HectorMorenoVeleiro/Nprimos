@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>100 Primeros Números Primos</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 2rem;
+      padding: 2.5rem;
+      max-width: 900px;
+      width: 100%;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #f093fb, #f5576c, #4facfe);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      color: rgba(255, 255, 255, 0.6);
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .prime-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.75rem 0.5rem;
+      text-align: center;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #e0e0e0;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: default;
+    }
+
+    .prime-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(79, 172, 254, 0.25);
+      border-color: rgba(79, 172, 254, 0.4);
+      color: #fff;
+    }
+
+    .prime-card:nth-child(odd) {
+      background: rgba(245, 87, 108, 0.08);
+    }
+
+    .prime-card:nth-child(odd):hover {
+      background: rgba(245, 87, 108, 0.2);
+      border-color: rgba(245, 87, 108, 0.4);
+      box-shadow: 0 8px 25px rgba(245, 87, 108, 0.2);
+    }
+
+    .prime-card:nth-child(10n) {
+      background: rgba(79, 172, 254, 0.08);
+    }
+
+    .prime-card:nth-child(10n):hover {
+      background: rgba(79, 172, 254, 0.2);
+      border-color: rgba(79, 172, 254, 0.4);
+      box-shadow: 0 8px 25px rgba(79, 172, 254, 0.2);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .container { padding: 1.5rem; }
+      h1 { font-size: 1.8rem; }
+      .grid { grid-template-columns: repeat(auto-fill, minmax(65px, 1fr)); gap: 0.5rem; }
+      .prime-card { font-size: 0.9rem; padding: 0.5rem 0.3rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Números Primos</h1>
+      <p>Los primeros 100 números primos</p>
+    </header>
+    <div class="grid" id="primeGrid"></div>
+    <footer>Hecho con ❤️</footer>
+  </div>
+  <script>
+    function isPrime(n) {
+      if (n < 2) return false;
+      if (n === 2) return true;
+      if (n % 2 === 0) return false;
+      for (let i = 3; i * i <= n; i += 2) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+
+    const primes = [];
+    let num = 2;
+    while (primes.length < 100) {
+      if (isPrime(num)) primes.push(num);
+      num++;
+    }
+
+    const grid = document.getElementById('primeGrid');
+    for (const p of primes) {
+      const card = document.createElement('div');
+      card.className = 'prime-card';
+      card.textContent = p;
+      grid.appendChild(card);
+    }
+  </script>
+</body>
+</html>
